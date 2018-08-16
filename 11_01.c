@@ -35,7 +35,7 @@ typedef enum
 
 typedef enum
 {
-    NAME,
+    NAME = 1,
     SURNAME,
     AGE,
     DATE_JOINED,
@@ -339,12 +339,41 @@ void printSortingOptions()
 
 bool byName(int index)
 {
-    return *students[index].name >*students[index + 1].name;
+    return *students[index].name > *students[index + 1].name;
 }
 
 bool bySurname(int index)
 {
-    return *students[index].surname >*students[index + 1].surname;
+    return *students[index].surname > *students[index + 1].surname;
+}
+
+bool byAge(int index)
+{
+    return students[index].age > students[index + 1].age;
+}
+
+bool byJoinedDate(int index)
+{
+    bool isBigger = false;
+    if ( students[index].date_joined.year > students[index + 1].date_joined.year)
+    {
+        isBigger = true;
+    }
+    else if ( students[index].date_joined.year == students[index + 1].date_joined.year)
+    {
+        if ( students[index].date_joined.month > students[index + 1].date_joined.month)
+        {
+            isBigger = true;
+        }
+        else if ( students[index].date_joined.month == students[index + 1].date_joined.month)
+        {
+            if ( students[index].date_joined.day > students[index + 1].date_joined.day)
+            {
+                isBigger = true;
+            }
+        }
+    }
+    return isBigger;
 }
 
 void sort(bool checkFunc(int index))
@@ -370,13 +399,16 @@ void swapStudents(int index)
 void sortStudents()
 {
     char option = '6';
-    getOneValue("selected option: ", " %c", &option);
+    printSortingOptions();
+    getOneValue("\nSelected option: ", " %c", &option);
 
     switch(atoi(&option))
     {
-        case NAME       :    sort(byName);break;
-        case SURNAME    :    sort(bySurname);break;
-        default         :    printf("\nSelected wrong option!!\n");break;
+        case NAME            :    sort(byName);break;
+        case SURNAME         :    sort(bySurname);break;
+        case AGE             :    sort(byAge);break;
+        case DATE_JOINED     :    sort(byJoinedDate);break;
+        default              :    printf("\nSelected wrong option!!\n");break;
     }
 
 }

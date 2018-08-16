@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/grzegorz/Projects/KursC/szkolenie/11/build",
-  "command": "/usr/bin/cc     -Wall -Wextra -Wpedantic -o CMakeFiles/11_01.dir/11_01.c.o   -c /home/grzegorz/Projects/KursC/szkolenie/11/11_01.c",
-  "file": "/home/grzegorz/Projects/KursC/szkolenie/11/11_01.c"
-}
-]
