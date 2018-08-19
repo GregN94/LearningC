@@ -6,21 +6,33 @@
 
 bool byName(Student left, Student right)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     return *left.name > *right.name;
 }
 
 bool bySurname(Student left, Student right)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     return *left.surname > *right.surname;
 }
 
 bool byAge(Student left, Student right)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     return left.age > right.age;
 }
 
 bool byJoinedDate(Student left, Student right)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     bool isBigger = false;
     if ( left.date_joined.year > right.date_joined.year)
     {
@@ -45,6 +57,9 @@ bool byJoinedDate(Student left, Student right)
 
 void swapStudents(Student* left, Student* right)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     Student tempStudent;
     copyStudents(&tempStudent, left);
     copyStudents(left, right);
@@ -53,6 +68,9 @@ void swapStudents(Student* left, Student* right)
 
 void sort(bool checkFunc(Student left, Student right), Student* students, int numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     for (int i = 1; i <= numOfStudents; ++i)
     {
         for (int j = 0; j < numOfStudents - i; ++j)
@@ -65,6 +83,9 @@ void sort(bool checkFunc(Student left, Student right), Student* students, int nu
 
 void printSortingOptions()
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     printf("\nAvaiable options:");
     printf("\n1. Name");
     printf("\n2. Surname");
@@ -74,6 +95,9 @@ void printSortingOptions()
 
 void sortStudents(Student* students, int numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     char option = '6';
     printSortingOptions();
     getOneValue("\nSelected option: ", " %c", &option);

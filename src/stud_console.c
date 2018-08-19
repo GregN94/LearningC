@@ -5,6 +5,9 @@
 
 void printMenu()
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     printf("\nAvaiable options:");
     printf("\n1. Print help");
     printf("\n2. Read students from file");
@@ -20,6 +23,9 @@ void printMenu()
 
 void printStudentByIndex(Student* students, int index)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
         printf("Name: %s, surname: %s, Age: %d, Day_joined: %d %d %d, Gender: %c\n",
                                students[index].name,
                                students[index].surname,
@@ -30,9 +36,11 @@ void printStudentByIndex(Student* students, int index)
                                students[index].gender);
 }
 
-
 void printAllStudents(Student* students, int numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     printf("\nPrinting all stuents:\n");
     for (int index = 0; index < numOfStudents; ++index)
     {
@@ -42,6 +50,9 @@ void printAllStudents(Student* students, int numOfStudents)
 
 void printOneStudent(Student* students, int numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     int index = -1;
     getOneValue("\nPut student index to print: ", " %d", &index);
     printf("\n");
@@ -60,9 +71,11 @@ void printOneStudent(Student* students, int numOfStudents)
     }
 }
 
-
 Student* addNewStudent(Student* students, int* numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     students = (Student*) realloc(students, sizeof(Student) * ++(*numOfStudents));
     Date birthDate;
 
@@ -80,9 +93,11 @@ Student* addNewStudent(Student* students, int* numOfStudents)
     return students;
 }
 
-
 Student* deleteStudent(Student* students, int* numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     int index = -1;
     getOneValue("\nPut student index to delete: ", " %d", &index);
     printf("\n");
@@ -101,12 +116,11 @@ Student* deleteStudent(Student* students, int* numOfStudents)
     return students;
 }
 
-
 Student* killStudents(Student* students, int* numOfStudents)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     *numOfStudents = 0;
     return realloc(students, sizeof(Student) * (*numOfStudents));
 }
-
-
-

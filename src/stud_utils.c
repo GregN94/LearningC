@@ -8,18 +8,27 @@ void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem2,
                                                      void* mem3)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     printf("%s", textToPrint);
     scanf(format, mem, mem2, mem3);
 }
 
 void getOneValue(char* textToPrint, char* format, void* mem)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     printf("%s", textToPrint);
     scanf(format, mem);
 }
 
 void copyStudents(Student* destination, Student* source)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     strcpy(destination->name, source->name);
     strcpy(destination->surname, source->surname);
     destination->age = source->age;
@@ -29,6 +38,9 @@ void copyStudents(Student* destination, Student* source)
 
 int getAge(Date* birthDate)
 {
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
     if (birthDate->month < today.month)
         birthDate->year--;
     else if (birthDate->month == today.month)
@@ -40,5 +52,3 @@ int getAge(Date* birthDate)
     if (age < 0) age = 0;
     return age;
 }
-
-
