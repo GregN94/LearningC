@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/grzegorz/Projects/szkolenie/11",
+  "command": "/usr/bin/cc   -I/home/grzegorz/Projects/szkolenie/11/include    -Wall -Wextra -Wpedantic -o CMakeFiles/run.dir/main.c.o   -c /home/grzegorz/Projects/szkolenie/11/main.c",
+  "file": "/home/grzegorz/Projects/szkolenie/11/main.c"
+},
+{
+  "directory": "/home/grzegorz/Projects/szkolenie/11",
+  "command": "/usr/bin/cc   -I/home/grzegorz/Projects/szkolenie/11/include    -Wall -Wextra -Wpedantic -o CMakeFiles/run.dir/src/stud_console.c.o   -c /home/grzegorz/Projects/szkolenie/11/src/stud_console.c",
+  "file": "/home/grzegorz/Projects/szkolenie/11/src/stud_console.c"
+},
+{
+  "directory": "/home/grzegorz/Projects/szkolenie/11",
+  "command": "/usr/bin/cc   -I/home/grzegorz/Projects/szkolenie/11/include    -Wall -Wextra -Wpedantic -o CMakeFiles/run.dir/src/stud_file.c.o   -c /home/grzegorz/Projects/szkolenie/11/src/stud_file.c",
+  "file": "/home/grzegorz/Projects/szkolenie/11/src/stud_file.c"
+},
+{
+  "directory": "/home/grzegorz/Projects/szkolenie/11",
+  "command": "/usr/bin/cc   -I/home/grzegorz/Projects/szkolenie/11/include    -Wall -Wextra -Wpedantic -o CMakeFiles/run.dir/src/stud_sort.c.o   -c /home/grzegorz/Projects/szkolenie/11/src/stud_sort.c",
+  "file": "/home/grzegorz/Projects/szkolenie/11/src/stud_sort.c"
+},
+{
+  "directory": "/home/grzegorz/Projects/szkolenie/11",
+  "command": "/usr/bin/cc   -I/home/grzegorz/Projects/szkolenie/11/include    -Wall -Wextra -Wpedantic -o CMakeFiles/run.dir/src/stud_utils.c.o   -c /home/grzegorz/Projects/szkolenie/11/src/stud_utils.c",
+  "file": "/home/grzegorz/Projects/szkolenie/11/src/stud_utils.c"
+}
+]

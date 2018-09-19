@@ -1,0 +1,3 @@
+/home/grzegorz/Projects/szkolenie/11/CMakeFiles/edit_cache.dir
+/home/grzegorz/Projects/szkolenie/11/CMakeFiles/rebuild_cache.dir
+/home/grzegorz/Projects/szkolenie/11/CMakeFiles/run.dir

@@ -33,8 +33,8 @@ typedef struct
 
 typedef struct
 {
-    char name[30];
-    char surname[30];
+    char name[16];
+    char surname[16];
     unsigned int age;
     Date date_birth;
     Date date_joined;

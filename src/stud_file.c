@@ -102,26 +102,29 @@ int getNumOfLines(char* fileName)
     return numOfLines;
 }
 
-void getStudentFromLine(char* line, Student* student)
+Student getStudentFromLine(char* line)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
+    Student tempStudent;
+    memset(&tempStudent, 0, sizeof(Student));
     sscanf(line, "%s %s %d-%d-%d, %d-%d-%d, %c",
-                student->name,
-                student->surname,
-                &student->date_birth.year,
-                &student->date_birth.month,
-                &student->date_birth.day,
-                &student->date_joined.year,
-                &student->date_joined.month,
-                &student->date_joined.day,
-                &student->gender);
+                tempStudent.name,
+                tempStudent.surname,
+                &tempStudent.date_birth.year,
+                &tempStudent.date_birth.month,
+                &tempStudent.date_birth.day,
+                &tempStudent.date_joined.year,
+                &tempStudent.date_joined.month,
+                &tempStudent.date_joined.day,
+                &tempStudent.gender);
 
-    size_t length = strlen(student->surname) - 1;
-    char * end = student->surname + length;
+    size_t length = strlen(tempStudent.surname) - 1;
+    char * end = tempStudent.surname + length;
     *end = '\0';
-    student->age = getAge(&student->date_birth);
+    tempStudent.age = getAge(&tempStudent.date_birth);
+    return tempStudent;
 }
 
 char* readStringFromBinary(FILE* file)
@@ -162,6 +165,16 @@ Student readStudentFromBin(FILE* file)
     return temp;
 }
 
+bool checkIfStudentExist(Student* tempStudent, Student* students, int numOfStudents)
+{
+    for (int i = 0; i < numOfStudents; ++i)
+    {
+        if (0 == memcmp(tempStudent, &students[i], sizeof(Student)))
+            return true;
+    }
+    return false;
+}
+
 Student* readFromTxt(char* fileName, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
@@ -173,14 +186,15 @@ Student* readFromTxt(char* fileName, Student* students, int* numOfStudents)
     {
         printSizeOfFile(fileName);
 
-        int allocationNumber = (*numOfStudents) + getNumOfLines(fileName);
-        students = (Student*) realloc(students, sizeof(Student) * allocationNumber );
-
         char line[110] = {""};
         while (fgets(line, sizeof(line), file) != NULL)
         {
-            getStudentFromLine(line, &students[*numOfStudents]);
-            (*numOfStudents)++;
+            Student tempStudent = getStudentFromLine(line);
+            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
+            {
+                students = (Student*) realloc(students, sizeof(Student) * ( ++(*numOfStudents) ) );
+                memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
+            }
         }
         fclose(file);
     }
