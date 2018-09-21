@@ -151,18 +151,19 @@ Student readStudentFromBin(FILE* file)
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    Student temp;
+    Student tempStudent;
+    memset(&tempStudent, 0, sizeof(Student));
     char* name = readStringFromBinary(file);
-    strcpy(temp.name, name);
-    strcpy(temp.surname, readStringFromBinary(file));
-    fread(&temp.date_birth.year, sizeof(int), 1, file);
-    fread(&temp.date_birth.month, sizeof(int), 1, file);
-    fread(&temp.date_birth.day, sizeof(int), 1, file);
-    fread(&temp.date_joined.year, sizeof(int), 1, file);
-    fread(&temp.date_joined.month, sizeof(int), 1, file);
-    fread(&temp.date_joined.day, sizeof(int), 1, file);
-    fread(&temp.gender, sizeof(char), 1, file);
-    return temp;
+    strcpy(tempStudent.name, name);
+    strcpy(tempStudent.surname, readStringFromBinary(file));
+    fread(&tempStudent.date_birth.year, sizeof(int), 1, file);
+    fread(&tempStudent.date_birth.month, sizeof(int), 1, file);
+    fread(&tempStudent.date_birth.day, sizeof(int), 1, file);
+    fread(&tempStudent.date_joined.year, sizeof(int), 1, file);
+    fread(&tempStudent.date_joined.month, sizeof(int), 1, file);
+    fread(&tempStudent.date_joined.day, sizeof(int), 1, file);
+    fread(&tempStudent.gender, sizeof(char), 1, file);
+    return tempStudent;
 }
 
 bool checkIfStudentExist(Student* tempStudent, Student* students, int numOfStudents)
@@ -217,10 +218,13 @@ Student* readFromBin(char* fileName, Student* students, int* numOfStudents)
         while (true)
         {
             Student tempStudent = readStudentFromBin(file);
-            if (strlen(tempStudent.name) == 0) break;
-            (*numOfStudents)++;
-            students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
-            copyStudents(&students[*numOfStudents - 1], &tempStudent);
+            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
+            {
+                if (strlen(tempStudent.name) == 0) break;
+                (*numOfStudents)++;
+                students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
+                copyStudents(&students[*numOfStudents - 1], &tempStudent);
+            }
         }
     }
     return students;
