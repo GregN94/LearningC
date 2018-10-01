@@ -4,6 +4,6 @@
 #include "stud_types.h"
 
 Student* readStudentsFromFile(Student* students, int* numOfStudents);
-Student* writeStudentsToFile(Student* students, int numOfStudents);
+void writeStudentsToFile(const Student* students, const int numOfStudents);
 
 #endif

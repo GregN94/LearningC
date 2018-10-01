@@ -4,8 +4,8 @@
 #include "stud_types.h"
 
 void printMenu();
-void printAllStudents(Student* students, int numOfStudents);
-void printOneStudent(Student* students, int numOfStudents);
+void printAllStudents(const Student* students, const int numOfStudents);
+void printOneStudent(const Student* students, const int numOfStudents);
 Student* addNewStudent(Student* students, int* numOfStudents);
 Student* deleteStudent(Student* students, int* numOfStudents);
 Student* killStudents(Student* students, int* numOfStudents);

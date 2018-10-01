@@ -21,7 +21,7 @@ void printMenu()
     printf("\n10. Close program\n");
 }
 
-void printStudentByIndex(Student* students, int index)
+void printStudentByIndex(const Student* students, const int index)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -36,7 +36,7 @@ void printStudentByIndex(Student* students, int index)
                                students[index].gender);
 }
 
-void printAllStudents(Student* students, int numOfStudents)
+void printAllStudents(const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -48,7 +48,7 @@ void printAllStudents(Student* students, int numOfStudents)
     }
 }
 
-void printOneStudent(Student* students, int numOfStudents)
+void printOneStudent(const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -89,7 +89,7 @@ Student* addNewStudent(Student* students, int* numOfStudents)
                                                    &students[*numOfStudents-1].date_joined.year);
     getOneValue("\nGender: ", " %c", &students[*numOfStudents-1].gender);
 
-    students[*numOfStudents - 1].age = getAge(&birthDate);
+    students[*numOfStudents - 1].age = getAge(birthDate);
     return students;
 }
 

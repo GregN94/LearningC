@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-Date today = {6, 8, 2018};
+const Date today = {6, 8, 2018};
 
 void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem2,
@@ -36,19 +36,19 @@ void copyStudents(Student* destination, Student* source)
     destination->gender = source->gender;
 }
 
-int getAge(Date* birthDate)
+int getAge(Date birthDate)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    if (birthDate->month < today.month)
-        birthDate->year--;
-    else if (birthDate->month == today.month)
+    if (birthDate.month < today.month)
+        birthDate.year--;
+    else if (birthDate.month == today.month)
     {
-        if (birthDate->day <= today.day)
-            birthDate->year--;
+        if (birthDate.day <= today.day)
+            birthDate.year--;
     }
-    int age = today.year - birthDate->year -1;
+    int age = today.year - birthDate.year -1;
     if (age < 0) age = 0;
     return age;
 }

@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-void printSizeOfFile(char* fileName)
+void printSizeOfFile(const char* fileName)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -15,7 +15,7 @@ void printSizeOfFile(char* fileName)
     printf("Size of file: %lu Bytes", ftell(file));
 }
 
-void txtWrite(char* fileName, Student* students, int numOfStudents)
+void txtWrite(const char* fileName, const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -37,7 +37,7 @@ void txtWrite(char* fileName, Student* students, int numOfStudents)
     fclose(file);
 }
 
-void binWrite(char* fileName, Student* students, int numOfStudents)
+void binWrite(const char* fileName, const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -60,7 +60,7 @@ void binWrite(char* fileName, Student* students, int numOfStudents)
     fclose(file);
 }
 
-Student* writeStudentsToFile(Student* students, int numOfStudents)
+void writeStudentsToFile(const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -86,10 +86,9 @@ Student* writeStudentsToFile(Student* students, int numOfStudents)
     }
 
     free(fileName);
-    return students;
 }
 
-int getNumOfLines(char* fileName)
+int getNumOfLines(const char* fileName)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -102,7 +101,7 @@ int getNumOfLines(char* fileName)
     return numOfLines;
 }
 
-Student getStudentFromLine(char* line)
+Student getStudentFromLine(const char* line)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -123,7 +122,7 @@ Student getStudentFromLine(char* line)
     size_t length = strlen(tempStudent.surname) - 1;
     char * end = tempStudent.surname + length;
     *end = '\0';
-    tempStudent.age = getAge(&tempStudent.date_birth);
+    tempStudent.age = getAge(tempStudent.date_birth);
     return tempStudent;
 }
 
@@ -166,7 +165,7 @@ Student readStudentFromBin(FILE* file)
     return tempStudent;
 }
 
-bool checkIfStudentExist(Student* tempStudent, Student* students, int numOfStudents)
+bool checkIfStudentExist(const Student* tempStudent, Student* students, const int numOfStudents)
 {
     for (int i = 0; i < numOfStudents; ++i)
     {
@@ -176,7 +175,7 @@ bool checkIfStudentExist(Student* tempStudent, Student* students, int numOfStude
     return false;
 }
 
-Student* readFromTxt(char* fileName, Student* students, int* numOfStudents)
+Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -206,7 +205,7 @@ Student* readFromTxt(char* fileName, Student* students, int* numOfStudents)
     return students;
 }
 
-Student* readFromBin(char* fileName, Student* students, int* numOfStudents)
+Student* readFromBin(const char* fileName, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);

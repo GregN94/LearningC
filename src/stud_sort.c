@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool byName(Student left, Student right)
+bool byName(const Student left, const Student right)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -12,7 +12,7 @@ bool byName(Student left, Student right)
     return *left.name > *right.name;
 }
 
-bool bySurname(Student left, Student right)
+bool bySurname(const Student left, const Student right)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -20,7 +20,7 @@ bool bySurname(Student left, Student right)
     return *left.surname > *right.surname;
 }
 
-bool byAge(Student left, Student right)
+bool byAge(const Student left, const Student right)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -28,7 +28,7 @@ bool byAge(Student left, Student right)
     return left.age > right.age;
 }
 
-bool byJoinedDate(Student left, Student right)
+bool byJoinedDate(const Student left, const Student right)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -66,7 +66,7 @@ void swapStudents(Student* left, Student* right)
     copyStudents(right, &tempStudent);
 }
 
-void sort(bool checkFunc(Student left, Student right), Student* students, int numOfStudents)
+void sort(bool checkFunc(Student left, Student right), Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -93,7 +93,7 @@ void printSortingOptions()
     printf("\n4. Date joined");
 }
 
-void sortStudents(Student* students, int numOfStudents)
+void sortStudents(Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);

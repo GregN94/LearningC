@@ -9,6 +9,6 @@ void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem3);
 
 void copyStudents(Student* destination, Student* source);
-int getAge(Date* birthDate);
+int getAge(Date birthDate);
 
 #endif

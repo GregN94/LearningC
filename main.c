@@ -20,7 +20,7 @@ int main()
         {
             case PRINT_HELP             :   printMenu();break;
             case READ_FROM_FILE         :   students = readStudentsFromFile(students, &numOfStudents); break;
-            case WRITE_TO_FILE          :   students = writeStudentsToFile(students, numOfStudents); break;
+            case WRITE_TO_FILE          :   writeStudentsToFile(students, numOfStudents); break;
             case DELETE_ALL_STUDENTS    :   killStudents(students, &numOfStudents); break;
             case PRINT_ONE_STUDENT      :   printOneStudent(students, numOfStudents);break;
             case PRINT_ALL_STUDENTS     :   printAllStudents(students, numOfStudents);break;

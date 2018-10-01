@@ -3,6 +3,6 @@
 
 #include "stud_types.h"
 
-void sortStudents(Student* student, int numOfStudents);
+void sortStudents(Student* student, const int numOfStudents);
 
 #endif
