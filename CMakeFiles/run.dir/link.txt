@@ -1,1 +1,0 @@
-/usr/bin/cc     CMakeFiles/run.dir/main.c.o CMakeFiles/run.dir/src/stud_console.c.o CMakeFiles/run.dir/src/stud_file.c.o CMakeFiles/run.dir/src/stud_sort.c.o CMakeFiles/run.dir/src/stud_utils.c.o  -o run -rdynamic 
