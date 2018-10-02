@@ -23,7 +23,6 @@ typedef enum
     DATE_JOINED,
 } SortingOptions;
 
-
 typedef struct
 {
     int day;

@@ -65,8 +65,8 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    char * fileName = (char*) malloc(sizeof(char) * 30);
-    getOneValue("\nPut file name to write to: ", " %s", fileName);
+    char fileName[30] = "";
+    getOneValue("\nPut file name to write to: ", " %s", &fileName);
 
     char option = '1';
     printf("\nT write to txt format put 1, to write to binary write 2");
@@ -84,21 +84,6 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
         default:
             printf("\nSelected wrong option!!!\n");
     }
-
-    free(fileName);
-}
-
-int getNumOfLines(const char* fileName)
-{
-#ifdef DEBUG
-    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
-#endif
-    FILE* file = fopen(fileName, "rt");
-    char line[110] = {""};
-    int numOfLines = 0;
-    while (fgets(line, sizeof(line), file) != NULL)
-        numOfLines++;
-    return numOfLines;
 }
 
 Student getStudentFromLine(const char* line)
@@ -126,12 +111,11 @@ Student getStudentFromLine(const char* line)
     return tempStudent;
 }
 
-char* readStringFromBinary(FILE* file)
+void readStringFromBin(FILE* file, char* string)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    char* string = (char*) malloc(sizeof(char) * 20);
     int length = 0;
     unsigned char buf;
     while(fread(&buf, sizeof(buf), 1, file))
@@ -141,8 +125,6 @@ char* readStringFromBinary(FILE* file)
         length++;
     }
     string[length] = '\0';
-    if (length == 0) return "";
-    return string;
 }
 
 Student readStudentFromBin(FILE* file)
@@ -152,9 +134,8 @@ Student readStudentFromBin(FILE* file)
 #endif
     Student tempStudent;
     memset(&tempStudent, 0, sizeof(Student));
-    char* name = readStringFromBinary(file);
-    strcpy(tempStudent.name, name);
-    strcpy(tempStudent.surname, readStringFromBinary(file));
+    readStringFromBin(file, tempStudent.name);
+    readStringFromBin(file, tempStudent.surname);
     fread(&tempStudent.date_birth.year, sizeof(int), 1, file);
     fread(&tempStudent.date_birth.month, sizeof(int), 1, file);
     fread(&tempStudent.date_birth.day, sizeof(int), 1, file);
@@ -165,16 +146,6 @@ Student readStudentFromBin(FILE* file)
     return tempStudent;
 }
 
-bool checkIfStudentExist(const Student* tempStudent, Student* students, const int numOfStudents)
-{
-    for (int i = 0; i < numOfStudents; ++i)
-    {
-        if (0 == memcmp(tempStudent, &students[i], sizeof(Student)))
-            return true;
-    }
-    return false;
-}
-
 Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
@@ -182,11 +153,11 @@ Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents
 #endif
     FILE* file = fopen(fileName, "rt");
 
-    if (file != NULL)
+    if ( file != NULL )
     {
         printSizeOfFile(fileName);
 
-        char line[110] = {""};
+        char line[110] = "";
         while (fgets(line, sizeof(line), file) != NULL)
         {
             Student tempStudent = getStudentFromLine(line);
@@ -217,9 +188,10 @@ Student* readFromBin(const char* fileName, Student* students, int* numOfStudents
         while (true)
         {
             Student tempStudent = readStudentFromBin(file);
+            if (strlen(tempStudent.name) == 0) break;
+
             if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
             {
-                if (strlen(tempStudent.name) == 0) break;
                 (*numOfStudents)++;
                 students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
                 copyStudents(&students[*numOfStudents - 1], &tempStudent);
@@ -234,7 +206,7 @@ Student* readStudentsFromFile(Student* students, int* numOfStudents)
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    char* fileName = (char*)malloc(sizeof(char) * 30);
+    char fileName[30] = "";
     getOneValue("\nPut file name to read from: ", " %s", fileName);
     char option = '1';
     printf("\nRead from txt option 1, form binary 2");
@@ -242,10 +214,16 @@ Student* readStudentsFromFile(Student* students, int* numOfStudents)
 
     switch(option)
     {
-        case '1'  :   students = readFromTxt(fileName, students, numOfStudents);break;
-        case '2'  :   students = readFromBin(fileName, students, numOfStudents);break;
+        case '1'  :
+            students = readFromTxt(fileName, students, numOfStudents);
+            break;
+        case '2'  :
+            students = readFromBin(fileName, students, numOfStudents);
+            break;
+        default:
+            printf("\nThere in no such option");
+            break;
     }
-    free(fileName);
     return students;
 }
 

@@ -36,7 +36,7 @@ void copyStudents(Student* destination, Student* source)
     destination->gender = source->gender;
 }
 
-int getAge(Date birthDate)
+unsigned getAge(Date birthDate)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -50,5 +50,15 @@ int getAge(Date birthDate)
     }
     int age = today.year - birthDate.year -1;
     if (age < 0) age = 0;
-    return age;
+    return (unsigned) age;
+}
+
+bool checkIfStudentExist(const Student* tempStudent, Student* students, const int numOfStudents)
+{
+    for (int i = 0; i < numOfStudents; ++i)
+    {
+        if ( 0 == memcmp(tempStudent, &students[i], sizeof(Student)) )
+            return true;
+    }
+    return false;
 }
