@@ -66,7 +66,7 @@ void swapStudents(Student* left, Student* right)
     copyStudents(right, &tempStudent);
 }
 
-void sort(bool checkFunc(Student left, Student right), Student* students, const int numOfStudents)
+void sort(bool checkFunc(Student, Student), Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -86,7 +86,7 @@ void printSortingOptions()
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    printf("\nAvaiable options:");
+    printf("\nAvailable options:");
     printf("\n1. Name");
     printf("\n2. Surname");
     printf("\n3. Age");
