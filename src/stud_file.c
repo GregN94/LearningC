@@ -88,19 +88,6 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
     free(fileName);
 }
 
-int getNumOfLines(const char* fileName)
-{
-#ifdef DEBUG
-    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
-#endif
-    FILE* file = fopen(fileName, "rt");
-    char line[110] = {""};
-    int numOfLines = 0;
-    while (fgets(line, sizeof(line), file) != NULL)
-        numOfLines++;
-    return numOfLines;
-}
-
 Student getStudentFromLine(const char* line)
 {
 #ifdef DEBUG

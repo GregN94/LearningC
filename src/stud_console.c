@@ -8,7 +8,7 @@ void printMenu()
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    printf("\nAvaiable options:");
+    printf("\nAvailable options:");
     printf("\n1. Print help");
     printf("\n2. Read students from file");
     printf("\n3. Write students to file");
@@ -41,7 +41,7 @@ void printAllStudents(const Student* students, const int numOfStudents)
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    printf("\nPrinting all stuents:\n");
+    printf("\nPrinting all students:\n");
     for (int index = 0; index < numOfStudents; ++index)
     {
         printStudentByIndex(students, index);
