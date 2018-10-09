@@ -148,25 +148,21 @@ Student readStudentFromBin(FILE* file)
     return tempStudent;
 }
 
-
-
-Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
+Student* operationOnFile(const char* fileName,
+                         const char* option,
+                         Student* students,
+                         int* numOfStudents,
+                         Student* operation(FILE*, Student*, int*))
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    FILE* file = fopen(fileName, "rt");
+    FILE* file = fopen(fileName, option);
 
     if ( file != NULL )
     {
         printFileSize(fileName);
-
-        char line[110] = "";
-        while (fgets(line, sizeof(line), file) != NULL)
-        {
-            Student tempStudent = getStudentFromLine(line);
-            students = addNewStudent(students, numOfStudents, tempStudent);
-        }
+        students = operation(file, students, numOfStudents);
         fclose(file);
     }
     else
@@ -176,26 +172,31 @@ Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents
     return students;
 }
 
-Student* readFromBin(const char* fileName, Student* students, int* numOfStudents)
+Student* readFromTxt(FILE* file, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    FILE* file = fopen(fileName, "rb");
-
-    if ( file != NULL )
+    char line[110] = "";
+    while (fgets(line, sizeof(line), file) != NULL)
     {
-        while (true)
-        {
-            Student tempStudent = readStudentFromBin(file);
-            if (strlen(tempStudent.name) == 0) break;
-
-            students = addNewStudent(students, numOfStudents, tempStudent);
-        }
+        Student tempStudent = getStudentFromLine(line);
+        students = addNewStudent(students, numOfStudents, tempStudent);
     }
-    else
+    return students;
+}
+
+Student* readFromBin(FILE* file, Student* students, int* numOfStudents)
+{
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
+    while (true)
     {
-        printf("ERROR: Couldn't open file!!!\n");
+        Student tempStudent = readStudentFromBin(file);
+        if (strlen(tempStudent.name) == 0) break;
+
+        students = addNewStudent(students, numOfStudents, tempStudent);
     }
     return students;
 }
@@ -214,10 +215,10 @@ Student* readStudentsFromFile(Student* students, int* numOfStudents)
     switch(option)
     {
         case '1'  :
-            students = readFromTxt(fileName, students, numOfStudents);
+            students = operationOnFile(fileName, "rt", students, numOfStudents, readFromTxt);
             break;
         case '2'  :
-            students = readFromBin(fileName, students, numOfStudents);
+            students = operationOnFile(fileName, "rb", students, numOfStudents, readFromBin);
             break;
         default:
             printf("\nThere in no such option");
