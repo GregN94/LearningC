@@ -12,7 +12,7 @@ void printFileSize(const char *fileName)
 #endif
     FILE* file = fopen(fileName, "rt");
     fseek(file, 0, SEEK_END);
-    printf("Size of file: %lu Bytes", ftell(file));
+    printf( "Size of file: %lu Bytes", ftell(file) );
 }
 
 void txtWrite(const char* fileName, const Student* students, const int numOfStudents)
@@ -105,7 +105,7 @@ Student getStudentFromLine(const char* line)
                 &tempStudent.gender);
 
     size_t length = strlen(tempStudent.surname) - 1;
-    char * end = tempStudent.surname + length;
+    char* end = tempStudent.surname + length;
     *end = '\0';
     tempStudent.age = getAge(tempStudent.date_birth);
     return tempStudent;
@@ -148,16 +148,7 @@ Student readStudentFromBin(FILE* file)
     return tempStudent;
 }
 
-Student* adNewStudent(Student* students, int* numOfStudents, const Student tempStudent)
-{
-    if ( isNewStudent(&tempStudent, students, *numOfStudents) )
-    {
-        (*numOfStudents)++;
-        students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
-        memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
-    }
-    return students;
-}
+
 
 Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
 {
@@ -174,7 +165,7 @@ Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents
         while (fgets(line, sizeof(line), file) != NULL)
         {
             Student tempStudent = getStudentFromLine(line);
-            students = adNewStudent(students, numOfStudents, tempStudent);
+            students = addNewStudent(students, numOfStudents, tempStudent);
         }
         fclose(file);
     }
@@ -192,14 +183,14 @@ Student* readFromBin(const char* fileName, Student* students, int* numOfStudents
 #endif
     FILE* file = fopen(fileName, "rb");
 
-    if (file != NULL)
+    if ( file != NULL )
     {
         while (true)
         {
             Student tempStudent = readStudentFromBin(file);
             if (strlen(tempStudent.name) == 0) break;
 
-            students = adNewStudent(students, numOfStudents, tempStudent);
+            students = addNewStudent(students, numOfStudents, tempStudent);
         }
     }
     else

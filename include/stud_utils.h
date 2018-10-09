@@ -10,8 +10,10 @@ void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem2,
                                                      void* mem3);
 
+
+Student* addNewStudent(Student *students, int *numOfStudents, Student tempStudent);
 void copyStudents(Student* destination, Student* source);
 unsigned getAge(Date birthDate);
-bool isNewStudent(const Student *tempStudent, Student *students, const int numOfStudents);
+bool isNewStudent(const Student *tempStudent, Student *students, int numOfStudents);
 
 #endif
