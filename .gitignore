@@ -5,3 +5,4 @@ compile_commands.json
 Makefile
 run*
 .idea/
+cmake-build-debug/
