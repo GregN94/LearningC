@@ -12,6 +12,6 @@ void getThreeValues(char* textToPrint, char* format, void* mem,
 
 void copyStudents(Student* destination, Student* source);
 unsigned getAge(Date birthDate);
-bool checkIfStudentExist(const Student* tempStudent, Student* students, const int numOfStudents);
+bool isNewStudent(const Student *tempStudent, Student *students, const int numOfStudents);
 
 #endif

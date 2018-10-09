@@ -53,12 +53,12 @@ unsigned getAge(Date birthDate)
     return (unsigned) age;
 }
 
-bool checkIfStudentExist(const Student* tempStudent, Student* students, const int numOfStudents)
+bool isNewStudent(const Student *tempStudent, Student *students, const int numOfStudents)
 {
     for (int i = 0; i < numOfStudents; ++i)
     {
         if ( 0 == memcmp(tempStudent, &students[i], sizeof(Student)) )
-            return true;
+            return false;
     }
-    return false;
+    return true;
 }

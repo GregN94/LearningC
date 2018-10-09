@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-void printSizeOfFile(const char* fileName)
+void printFileSize(const char *fileName)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -75,11 +75,11 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
     {
         case '1':
             txtWrite(fileName, students, numOfStudents);
-            printSizeOfFile(fileName);
+            printFileSize(fileName);
             break;
         case '2':
             binWrite(fileName, students, numOfStudents);
-            printSizeOfFile(fileName);
+            printFileSize(fileName);
             break;
         default:
             printf("\nSelected wrong option!!!\n");
@@ -143,7 +143,20 @@ Student readStudentFromBin(FILE* file)
     fread(&tempStudent.date_joined.month, sizeof(int), 1, file);
     fread(&tempStudent.date_joined.day, sizeof(int), 1, file);
     fread(&tempStudent.gender, sizeof(char), 1, file);
+    tempStudent.age = getAge(tempStudent.date_birth);
+
     return tempStudent;
+}
+
+Student* adNewStudent(Student* students, int* numOfStudents, const Student tempStudent)
+{
+    if ( isNewStudent(&tempStudent, students, *numOfStudents) )
+    {
+        (*numOfStudents)++;
+        students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
+        memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
+    }
+    return students;
 }
 
 Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
@@ -155,17 +168,13 @@ Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents
 
     if ( file != NULL )
     {
-        printSizeOfFile(fileName);
+        printFileSize(fileName);
 
         char line[110] = "";
         while (fgets(line, sizeof(line), file) != NULL)
         {
             Student tempStudent = getStudentFromLine(line);
-            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
-            {
-                students = (Student*) realloc(students, sizeof(Student) * ( ++(*numOfStudents) ) );
-                memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
-            }
+            students = adNewStudent(students, numOfStudents, tempStudent);
         }
         fclose(file);
     }
@@ -190,13 +199,12 @@ Student* readFromBin(const char* fileName, Student* students, int* numOfStudents
             Student tempStudent = readStudentFromBin(file);
             if (strlen(tempStudent.name) == 0) break;
 
-            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
-            {
-                (*numOfStudents)++;
-                students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
-                copyStudents(&students[*numOfStudents - 1], &tempStudent);
-            }
+            students = adNewStudent(students, numOfStudents, tempStudent);
         }
+    }
+    else
+    {
+        printf("ERROR: Couldn't open file!!!\n");
     }
     return students;
 }
