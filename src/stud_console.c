@@ -2,6 +2,7 @@
 #include "stud_utils.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void printMenu()
 {
@@ -64,30 +65,44 @@ void printOneStudent(const Student* students, const int numOfStudents)
     }
 }
 
-Student* addNewStudent(Student* students, int* numOfStudents)
+Student getStudentFromConsole()
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    students = (Student*) realloc(students, sizeof(Student) * ++(*numOfStudents));
-    Date birthDate;
+    Student tempStudent;
+    memset(&tempStudent, 0, sizeof(Student));
 
-    getOneValue("\nName: ", " %s", students[*numOfStudents-1].name);
-    getOneValue("\nSurname: ", " %s", students[*numOfStudents-1].surname);
-    getThreeValues("\nDate of birth: ", " %d %d %d", &birthDate.day,
-                                                     &birthDate.month,
-                                                     &birthDate.year);
-    getThreeValues("\nDate joined: ", " %d %d %d", &students[*numOfStudents-1].date_joined.day,
-                                                   &students[*numOfStudents-1].date_joined.month,
-                                                   &students[*numOfStudents-1].date_joined.year);
-    getOneValue("\nGender: ", " %c", &students[*numOfStudents-1].gender);
+    getOneValue("\nName: ", " %s", tempStudent.name);
+    getOneValue("\nSurname: ", " %s", tempStudent.surname);
+    getThreeValues("\nDate of birth: ", " %d %d %d", &tempStudent.date_birth.day,
+                   &tempStudent.date_birth.month,
+                   &tempStudent.date_birth.year);
+    getThreeValues("\nDate joined: ", " %d %d %d", &tempStudent.date_joined.day,
+                   &tempStudent.date_joined.month,
+                   &tempStudent.date_joined.year);
+    getOneValue("\nGender: ", " %c", &tempStudent.gender);
 
-    students[*numOfStudents - 1].age = getAge(birthDate);
+    tempStudent.age = getAge(tempStudent.date_birth);
 
-    if (students[*numOfStudents-1].gender == 'M')
-        students[*numOfStudents-1].print = printMan;
+    if (tempStudent.gender == 'M')
+    {
+        tempStudent.print = printMan;
+    }
     else
-        students[*numOfStudents-1].print = printWoman;
+    {
+        tempStudent.print = printWoman;
+    }
+    return tempStudent;
+}
+
+Student* addStudentFromConsole(Student *students, int *numOfStudents)
+{
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
+    Student tempStudent = getStudentFromConsole();
+    students = addNewStudent(students, numOfStudents, tempStudent);
     return students;
 }
 
@@ -103,7 +118,7 @@ Student* deleteStudent(Student* students, int* numOfStudents)
     {
         for (int i = index; i < (*numOfStudents) -1; i++)
         {
-            copyStudents(&students[i], &students[i + 1]);
+            memcpy(&students[i], &students[i + 1], sizeof(Student));
         }
         students = (Student*) realloc(students, sizeof(Student) * --(*numOfStudents));
     }
@@ -122,3 +137,4 @@ Student* killStudents(Student* students, int* numOfStudents)
     *numOfStudents = 0;
     return realloc(students, sizeof(Student) * (*numOfStudents));
 }
+2

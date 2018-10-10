@@ -24,7 +24,7 @@ int main()
             case DELETE_ALL_STUDENTS    :   killStudents(students, &numOfStudents); break;
             case PRINT_ONE_STUDENT      :   printOneStudent(students, numOfStudents);break;
             case PRINT_ALL_STUDENTS     :   printAllStudents(students, numOfStudents);break;
-            case ADD_NEW_STUDENT        :   students = addNewStudent(students, &numOfStudents);break;
+            case ADD_NEW_STUDENT        :   students = addStudentFromConsole(students, &numOfStudents);break;
             case DELETE_ONE_STUDENT     :   students = deleteStudent(students, &numOfStudents);break;
             case SORT_STUDENTS          :   sortStudents(students, numOfStudents);break;
             case CLOSE_PROGRAM          :   return 0;

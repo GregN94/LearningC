@@ -5,14 +5,14 @@
 #include <string.h>
 #include <stdbool.h>
 
-void printSizeOfFile(const char* fileName)
+void printFileSize(const char *fileName)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
     FILE* file = fopen(fileName, "rt");
     fseek(file, 0, SEEK_END);
-    printf("Size of file: %lu Bytes", ftell(file));
+    printf( "Size of file: %lu Bytes", ftell(file) );
 }
 
 void txtWrite(const char* fileName, const Student* students, const int numOfStudents)
@@ -75,11 +75,11 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
     {
         case '1':
             txtWrite(fileName, students, numOfStudents);
-            printSizeOfFile(fileName);
+            printFileSize(fileName);
             break;
         case '2':
             binWrite(fileName, students, numOfStudents);
-            printSizeOfFile(fileName);
+            printFileSize(fileName);
             break;
         default:
             printf("\nSelected wrong option!!!\n");
@@ -105,7 +105,7 @@ Student getStudentFromLine(const char* line)
                 &tempStudent.gender);
 
     size_t length = strlen(tempStudent.surname) - 1;
-    char * end = tempStudent.surname + length;
+    char* end = tempStudent.surname + length;
     *end = '\0';
     tempStudent.age = getAge(tempStudent.date_birth);
 
@@ -148,35 +148,35 @@ Student readStudentFromBin(FILE* file)
     fread(&tempStudent.date_joined.month, sizeof(int), 1, file);
     fread(&tempStudent.date_joined.day, sizeof(int), 1, file);
     fread(&tempStudent.gender, sizeof(char), 1, file);
+    tempStudent.age = getAge(tempStudent.date_birth);
 
     if (tempStudent.gender == 'M')
+    {
         tempStudent.print = printMan;
+    }
     else
+    {
         tempStudent.print = printWoman;
+    }
+
     return tempStudent;
 }
 
-Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents)
+Student* operationOnFile(const char* fileName,
+                         const char* option,
+                         Student* students,
+                         int* numOfStudents,
+                         Student* operation(FILE*, Student*, int*))
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    FILE* file = fopen(fileName, "rt");
+    FILE* file = fopen(fileName, option);
 
     if ( file != NULL )
     {
-        printSizeOfFile(fileName);
-
-        char line[110] = "";
-        while (fgets(line, sizeof(line), file) != NULL)
-        {
-            Student tempStudent = getStudentFromLine(line);
-            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
-            {
-                students = (Student*) realloc(students, sizeof(Student) * ( ++(*numOfStudents) ) );
-                memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
-            }
-        }
+        printFileSize(fileName);
+        students = operation(file, students, numOfStudents);
         fclose(file);
     }
     else
@@ -186,27 +186,31 @@ Student* readFromTxt(const char* fileName, Student* students, int* numOfStudents
     return students;
 }
 
-Student* readFromBin(const char* fileName, Student* students, int* numOfStudents)
+Student* readFromTxt(FILE* file, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-    FILE* file = fopen(fileName, "rb");
-
-    if (file != NULL)
+    char line[110] = "";
+    while (fgets(line, sizeof(line), file) != NULL)
     {
-        while (true)
-        {
-            Student tempStudent = readStudentFromBin(file);
-            if (strlen(tempStudent.name) == 0) break;
+        Student tempStudent = getStudentFromLine(line);
+        students = addNewStudent(students, numOfStudents, tempStudent);
+    }
+    return students;
+}
 
-            if ( false == checkIfStudentExist(&tempStudent, students, *numOfStudents))
-            {
-                (*numOfStudents)++;
-                students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
-                copyStudents(&students[*numOfStudents - 1], &tempStudent);
-            }
-        }
+Student* readFromBin(FILE* file, Student* students, int* numOfStudents)
+{
+#ifdef DEBUG
+    printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
+    while (true)
+    {
+        Student tempStudent = readStudentFromBin(file);
+        if (strlen(tempStudent.name) == 0) break;
+
+        students = addNewStudent(students, numOfStudents, tempStudent);
     }
     return students;
 }
@@ -225,10 +229,10 @@ Student* readStudentsFromFile(Student* students, int* numOfStudents)
     switch(option)
     {
         case '1'  :
-            students = readFromTxt(fileName, students, numOfStudents);
+            students = operationOnFile(fileName, "rt", students, numOfStudents, readFromTxt);
             break;
         case '2'  :
-            students = readFromBin(fileName, students, numOfStudents);
+            students = operationOnFile(fileName, "rb", students, numOfStudents, readFromBin);
             break;
         default:
             printf("\nThere in no such option");
