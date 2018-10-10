@@ -137,4 +137,3 @@ Student* killStudents(Student* students, int* numOfStudents)
     *numOfStudents = 0;
     return realloc(students, sizeof(Student) * (*numOfStudents));
 }
-2
