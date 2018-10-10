@@ -108,6 +108,11 @@ Student getStudentFromLine(const char* line)
     char * end = tempStudent.surname + length;
     *end = '\0';
     tempStudent.age = getAge(tempStudent.date_birth);
+
+    if (tempStudent.gender == 'M')
+        tempStudent.print = printMan;
+    else
+        tempStudent.print = printWoman;
     return tempStudent;
 }
 
@@ -143,6 +148,11 @@ Student readStudentFromBin(FILE* file)
     fread(&tempStudent.date_joined.month, sizeof(int), 1, file);
     fread(&tempStudent.date_joined.day, sizeof(int), 1, file);
     fread(&tempStudent.gender, sizeof(char), 1, file);
+
+    if (tempStudent.gender == 'M')
+        tempStudent.print = printMan;
+    else
+        tempStudent.print = printWoman;
     return tempStudent;
 }
 

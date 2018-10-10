@@ -30,7 +30,7 @@ typedef struct
     int year;
 } Date;
 
-typedef struct
+typedef struct Student
 {
     char name[16];
     char surname[16];
@@ -38,6 +38,7 @@ typedef struct
     Date date_birth;
     Date date_joined;
     char gender;
+    void (*print)(struct Student*);
 } Student;
 
 

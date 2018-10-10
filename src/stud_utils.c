@@ -4,6 +4,28 @@
 
 const Date today = {6, 8, 2018};
 
+void printWoman(Student* student)
+{
+    printf("Her name is %s, surname %s, she is %d years old, she joined on %d %d %d\n",
+           student->name,
+           student->surname,
+           student->age,
+           student->date_joined.day,
+           student->date_joined.month,
+           student->date_joined.year);
+}
+
+void printMan(Student* student)
+{
+    printf("His name is %s, surname %s, he is %d years old, hhe joined on %d %d %d\n",
+           student->name,
+           student->surname,
+           student->age,
+           student->date_joined.day,
+           student->date_joined.month,
+           student->date_joined.year);
+}
+
 void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem2,
                                                      void* mem3)

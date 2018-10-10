@@ -26,14 +26,7 @@ void printStudentByIndex(const Student* students, const int index)
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
-        printf("Name: %s, surname: %s, Age: %d, Day_joined: %d %d %d, Gender: %c\n",
-                               students[index].name,
-                               students[index].surname,
-                               students[index].age,
-                               students[index].date_joined.day,
-                               students[index].date_joined.month,
-                               students[index].date_joined.year,
-                               students[index].gender);
+    students[index].print((void*)&students[index]);
 }
 
 void printAllStudents(const Student* students, const int numOfStudents)
@@ -90,6 +83,11 @@ Student* addNewStudent(Student* students, int* numOfStudents)
     getOneValue("\nGender: ", " %c", &students[*numOfStudents-1].gender);
 
     students[*numOfStudents - 1].age = getAge(birthDate);
+
+    if (students[*numOfStudents-1].gender == 'M')
+        students[*numOfStudents-1].print = printMan;
+    else
+        students[*numOfStudents-1].print = printWoman;
     return students;
 }
 

@@ -5,6 +5,9 @@
 
 #include <stdbool.h>
 
+void printWoman(Student*);
+void printMan(Student*);
+
 void getOneValue(char* textToPrint, char* format, void* mem);
 void getThreeValues(char* textToPrint, char* format, void* mem,
                                                      void* mem2,
