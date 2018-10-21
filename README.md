@@ -2,8 +2,6 @@
 
 TODOs
 
-- Add stud_mem.c file containg own implementations of memcpy, memcmp and memset
-
 - Redefine memcpy, memcmp, memset using preprocessor, so that own functions are used
 
 - Introduce compilation flag OWN_MEM_FUNC, which when set causes own memset, memcpy and memcmp to be used. When n0t set original functions shall be used
