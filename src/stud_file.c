@@ -5,6 +5,12 @@
 #include <string.h>
 #include <stdbool.h>
 
+#if OWN_MEM_FUNC
+#define memset(dest, ch, count) my_memset(dest, ch, count)
+#endif
+
+extern void* my_memset( void* dest, int ch, size_t count );
+
 void printFileSize(const char *fileName)
 {
 #ifdef DEBUG

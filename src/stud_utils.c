@@ -3,6 +3,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+#if OWN_MEM_FUNC
+#define memcmp(ptr1, ptr2, num) my_memcmp (ptr1, ptr2, num )
+#define memcpy(dest, src, count) my_memcpy(dest, src, count)
+#endif
+
+extern void* my_memcpy( void *dest, const void *src, size_t count );
+extern void* my_memcmp ( const void * ptr1, const void * ptr2, size_t num );
+
 const Date today = {6, 8, 2018};
 
 void printWoman(Student* student)
@@ -27,24 +35,24 @@ void printMan(Student* student)
            student->date_joined.year);
 }
 
-void getThreeValues(char* textToPrint, char* format, void* mem,
-                                                     void* mem2,
-                                                     void* mem3)
+void getThreeValues(char* textToPrint, char* format, void* arg,
+                                                     void* arg2,
+                                                     void* arg3)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
     printf("%s", textToPrint);
-    scanf(format, mem, mem2, mem3);
+    scanf(format, arg, arg2, arg3);
 }
 
-void getOneValue(char* textToPrint, char* format, void* mem)
+void getOneValue(char* textToPrint, char* format, void* arg)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
     printf("%s", textToPrint);
-    scanf(format, mem);
+    scanf(format, arg);
 }
 
 Student* addNewStudent(Student *students, int *numOfStudents, const Student tempStudent)

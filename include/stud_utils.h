@@ -8,10 +8,10 @@
 void printWoman(Student*);
 void printMan(Student*);
 
-void getOneValue(char* textToPrint, char* format, void* mem);
-void getThreeValues(char* textToPrint, char* format, void* mem,
+void getOneValue(char* textToPrint, char* format, void* arg);
+void getThreeValues(char* textToPrint, char* format, void* arg,
                                                      void* mem2,
-                                                     void* mem3);
+                                                     void* arg3);
 
 
 Student* addNewStudent(Student *students, int *numOfStudents, Student tempStudent);

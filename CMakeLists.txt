@@ -11,6 +11,12 @@ IF(DEBUG_OPT)
     MESSAGE("Build type is " ${CMAKE_BUILD_TYPE})
 ENDIF(DEBUG_OPT)
 
+IF(OWN_MEM)
+    MESSAGE("Adding own mem functions...")
+    ADD_DEFINITIONS(-DOWN_MEM_FUNC)
+    SET(CMAKE_BUILD_TYPE Debug)
+    MESSAGE("Build type is " ${CMAKE_BUILD_TYPE})
+ENDIF(OWN_MEM)
 
 include_directories(include)
 

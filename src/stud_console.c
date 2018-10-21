@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if OWN_MEM_FUNC
+#define memset(dest, ch, count) my_memset(dest, ch, count)
+#define memcpy(dest, src, count) my_memcpy(dest, src, count)
+#endif
+
+extern void* my_memcpy( void *dest, const void *src, size_t count );
+extern void* my_memset( void* dest, int ch, size_t count );
+
 void printMenu()
 {
 #ifdef DEBUG
