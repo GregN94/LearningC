@@ -1,7 +1,10 @@
 #include "stud_utils.h"
+#include "stud_file.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stud_temp.h>
 
 #if OWN_MEM_FUNC
 #define memcmp(ptr1, ptr2, num) my_memcmp (ptr1, ptr2, num )
@@ -55,18 +58,23 @@ void getOneValue(char* textToPrint, char* format, void* arg)
     scanf(format, arg);
 }
 
-Student* addNewStudent(Student *students, int *numOfStudents, const Student tempStudent)
+void addNewStudent(Student *students, int *numOfStudents, const Student tempStudent)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
     if ( isNewStudent(&tempStudent, students, *numOfStudents) )
     {
+        if (*numOfStudents < MAX_STUD)
+        {
+            memcpy(&students[*numOfStudents], &tempStudent, sizeof(Student));
+        }
+        else
+        {
+            appendToTemp(tempStudent);
+        }
         (*numOfStudents)++;
-        students = (Student*) realloc(students, sizeof(Student) * (*numOfStudents) );
-        memcpy(&students[*numOfStudents - 1], &tempStudent, sizeof(Student));
     }
-    return students;
 }
 
 void copyStudents(Student* destination, Student* source)
@@ -108,5 +116,5 @@ bool isNewStudent(const Student *tempStudent, Student *students, const int numOf
         if ( 0 == memcmp(tempStudent, &students[i], sizeof(Student)) )
             return false;
     }
-    return true;
+    return isNewInTemp(tempStudent);
 }

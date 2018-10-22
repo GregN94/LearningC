@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stud_temp.h>
 
 #if OWN_MEM_FUNC
 #define memset(dest, ch, count) my_memset(dest, ch, count)
@@ -46,7 +47,13 @@ void printAllStudents(const Student* students, const int numOfStudents)
     printf("\nPrinting all students:\n");
     for (int index = 0; index < numOfStudents; ++index)
     {
-        printStudentByIndex(students, index);
+        if (index < MAX_STUD)
+            printStudentByIndex(students, index);
+        else
+        {
+            printFromTemp();
+            break;
+        }
     }
 }
 
@@ -104,17 +111,16 @@ Student getStudentFromConsole()
     return tempStudent;
 }
 
-Student* addStudentFromConsole(Student *students, int *numOfStudents)
+void addStudentFromConsole(Student *students, int *numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
     Student tempStudent = getStudentFromConsole();
-    students = addNewStudent(students, numOfStudents, tempStudent);
-    return students;
+    addNewStudent(students, numOfStudents, tempStudent);
 }
 
-Student* deleteStudent(Student* students, int* numOfStudents)
+void deleteStudent(Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -128,20 +134,20 @@ Student* deleteStudent(Student* students, int* numOfStudents)
         {
             memcpy(&students[i], &students[i + 1], sizeof(Student));
         }
-        students = (Student*) realloc(students, sizeof(Student) * --(*numOfStudents));
+        memset(&students[*numOfStudents], 0, sizeof(Student));
+        (*numOfStudents)--;
     }
     else
     {
         printf("Incorrect index\n");
     }
-    return students;
 }
 
-Student* killStudents(Student* students, int* numOfStudents)
+void killStudents(Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
 #endif
+    memset(&students[*numOfStudents], 0, sizeof(Student) * (*numOfStudents));
     *numOfStudents = 0;
-    return realloc(students, sizeof(Student) * (*numOfStudents));
 }

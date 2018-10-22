@@ -1,6 +1,8 @@
 #ifndef __STUD_TYPES_H__
 #define __STUD_TYPES_H__
 
+#define MAX_STUD 20
+
 typedef enum
 {
     PRINT_HELP = 1,

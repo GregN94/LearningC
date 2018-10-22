@@ -25,6 +25,7 @@ SET(SOURCES main.c
             src/stud_file.c
             src/stud_sort.c
             src/stud_utils.c
-            src/stud_mem.c)
+            src/stud_mem.c
+            src/stud_temp.c)
 
 add_executable(run ${SOURCES})

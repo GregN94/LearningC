@@ -14,7 +14,7 @@ void getThreeValues(char* textToPrint, char* format, void* arg,
                                                      void* arg3);
 
 
-Student* addNewStudent(Student *students, int *numOfStudents, Student tempStudent);
+void addNewStudent(Student *students, int *numOfStudents, Student tempStudent);
 void copyStudents(Student* destination, Student* source);
 unsigned getAge(Date birthDate);
 bool isNewStudent(const Student *tempStudent, Student *students, int numOfStudents);

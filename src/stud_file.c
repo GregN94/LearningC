@@ -21,6 +21,20 @@ void printFileSize(const char *fileName)
     printf( "Size of file: %lu Bytes", ftell(file) );
 }
 
+void writeStudentToFile(FILE* file, const Student* student)
+{
+    fprintf(file, "%s %s %d-%d-%d %d-%d-%d %c\n",
+            student->name,
+            student->surname,
+            student->date_birth.day,
+            student->date_birth.month,
+            student->date_birth.year,
+            student->date_joined.day,
+            student->date_joined.month,
+            student->date_joined.year,
+            student->gender);
+}
+
 void txtWrite(const char* fileName, const Student* students, const int numOfStudents)
 {
 #ifdef DEBUG
@@ -29,16 +43,7 @@ void txtWrite(const char* fileName, const Student* students, const int numOfStud
     FILE* file = fopen(fileName, "w+t");
     for (int i = 0; i < numOfStudents; ++i)
     {
-        fprintf(file, "%s %s %d-%d-%d %d-%d-%d %c\n",
-                students[i].name,
-                students[i].surname,
-                students[i].date_birth.day,
-                students[i].date_birth.month,
-                students[i].date_birth.year,
-                students[i].date_joined.day,
-                students[i].date_joined.month,
-                students[i].date_joined.year,
-                students[i].gender);
+        writeStudentToFile(file, &students[i]);
     }
     fclose(file);
 }
@@ -168,11 +173,11 @@ Student readStudentFromBin(FILE* file)
     return tempStudent;
 }
 
-Student* operationOnFile(const char* fileName,
+void operationOnFile(const char* fileName,
                          const char* option,
                          Student* students,
                          int* numOfStudents,
-                         Student* operation(FILE*, Student*, int*))
+                         void operation(FILE*, Student*, int*))
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -182,17 +187,17 @@ Student* operationOnFile(const char* fileName,
     if ( file != NULL )
     {
         printFileSize(fileName);
-        students = operation(file, students, numOfStudents);
+        operation(file, students, numOfStudents);
+        printf("\nNum of students after reading: %d\n", *numOfStudents);
         fclose(file);
     }
     else
     {
         printf("ERROR: Couldn't open file!!!\n");
     }
-    return students;
 }
 
-Student* readFromTxt(FILE* file, Student* students, int* numOfStudents)
+void readFromTxt(FILE* file, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -201,12 +206,11 @@ Student* readFromTxt(FILE* file, Student* students, int* numOfStudents)
     while (fgets(line, sizeof(line), file) != NULL)
     {
         Student tempStudent = getStudentFromLine(line);
-        students = addNewStudent(students, numOfStudents, tempStudent);
+        addNewStudent(students, numOfStudents, tempStudent);
     }
-    return students;
 }
 
-Student* readFromBin(FILE* file, Student* students, int* numOfStudents)
+void readFromBin(FILE* file, Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -216,12 +220,11 @@ Student* readFromBin(FILE* file, Student* students, int* numOfStudents)
         Student tempStudent = readStudentFromBin(file);
         if (strlen(tempStudent.name) == 0) break;
 
-        students = addNewStudent(students, numOfStudents, tempStudent);
+        addNewStudent(students, numOfStudents, tempStudent);
     }
-    return students;
 }
 
-Student* readStudentsFromFile(Student* students, int* numOfStudents)
+void readStudentsFromFile(Student* students, int* numOfStudents)
 {
 #ifdef DEBUG
     printf ("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
@@ -235,15 +238,14 @@ Student* readStudentsFromFile(Student* students, int* numOfStudents)
     switch(option)
     {
         case '1'  :
-            students = operationOnFile(fileName, "rt", students, numOfStudents, readFromTxt);
+            operationOnFile(fileName, "rt", students, numOfStudents, readFromTxt);
             break;
         case '2'  :
-            students = operationOnFile(fileName, "rb", students, numOfStudents, readFromBin);
+            operationOnFile(fileName, "rb", students, numOfStudents, readFromBin);
             break;
         default:
             printf("\nThere in no such option");
             break;
     }
-    return students;
 }
 
