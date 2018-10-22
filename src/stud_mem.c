@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "stud_mem.h"
 
 void* my_memcpy( void *dest, const void *src, size_t count )
 {
