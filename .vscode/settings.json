@@ -32,7 +32,5 @@
       },
     "editor.minimap.enabled": false,
     "search.location": "panel",
-    "C_Cpp.intelliSenseEngine": "Default",
-    // "C_Cpp.intelliSenseEngine": "Tag Parser",
-    // "searchRipgrep.enable": true
+
 }

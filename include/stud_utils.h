@@ -5,10 +5,16 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define DEBUG
+#define DEBUG(TEXT)
 #ifdef DEBUG_OPT
-    #undef DEBUG
-    #define DEBUG(); printf("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+    #undef DEBUG(TEXT)
+    #define DEBUG(TEXT) printf(TEXT, "\nDEBUG: at %s, line %d.", __FILE__, __LINE__)
+#endif
+
+#if OWN_MEM_FUNC
+    #define memset(dest, ch, count) my_memset(dest, ch, count)
+    #define memcmp(ptr1, ptr2, num) my_memcmp (ptr1, ptr2, num )
+    #define memcpy(dest, src, count) my_memcpy(dest, src, count)
 #endif
 
 void printWoman(Student*);

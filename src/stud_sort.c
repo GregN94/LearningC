@@ -6,25 +6,25 @@
 
 bool byName(const Student left, const Student right)
 {
-    DEBUG();
+    DEBUG("");
     return *left.name > *right.name;
 }
 
 bool bySurname(const Student left, const Student right)
 {
-    DEBUG();
+    DEBUG("");
     return *left.surname > *right.surname;
 }
 
 bool byAge(const Student left, const Student right)
 {
-    DEBUG();
+    DEBUG("");
     return left.age > right.age;
 }
 
 bool byJoinedDate(const Student left, const Student right)
 {
-    DEBUG();
+    DEBUG("");
     bool isBigger = false;
     if ( left.date_joined.year > right.date_joined.year)
     {
@@ -49,7 +49,7 @@ bool byJoinedDate(const Student left, const Student right)
 
 void swapStudents(Student* left, Student* right)
 {
-    DEBUG();
+    DEBUG("");
     Student tempStudent;
     copyStudents(&tempStudent, left);
     copyStudents(left, right);
@@ -58,7 +58,7 @@ void swapStudents(Student* left, Student* right)
 
 void sort(bool checkFunc(Student, Student), Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     for (int i = 1; i <= numOfStudents; ++i)
     {
         for (int j = 0; j < numOfStudents - i; ++j)
@@ -71,7 +71,7 @@ void sort(bool checkFunc(Student, Student), Student* students, const int numOfSt
 
 void printSortingOptions()
 {
-    DEBUG();
+    DEBUG("");
     printf("\nAvailable options:");
     printf("\n1. Name");
     printf("\n2. Surname");
@@ -81,7 +81,7 @@ void printSortingOptions()
 
 void sortStudents(Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     char option = '6';
     printSortingOptions();
     getOneValue("\nSelected option: ", " %c", &option);

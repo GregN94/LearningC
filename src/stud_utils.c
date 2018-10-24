@@ -4,20 +4,11 @@
 #include <stdlib.h>
 #include <stud_temp.h>
 
-
-#if OWN_MEM_FUNC
-#define memcmp(ptr1, ptr2, num) my_memcmp (ptr1, ptr2, num )
-#define memcpy(dest, src, count) my_memcpy(dest, src, count)
-#endif
-
-extern void* my_memcpy( void *dest, const void *src, size_t count );
-extern void* my_memcmp ( const void * ptr1, const void * ptr2, size_t num );
-
 const Date today = {6, 8, 2018};
 
 void printWoman(Student* student)
 {
-    DEBUG();
+    DEBUG("");
     printf("Her name is %s, surname %s, she is %d years old, she joined on %d %d %d\n",
            student->name,
            student->surname,
@@ -29,7 +20,7 @@ void printWoman(Student* student)
 
 void printMan(Student* student)
 {
-    DEBUG();
+    DEBUG("");
     printf("His name is %s, surname %s, he is %d years old, hhe joined on %d %d %d\n",
            student->name,
            student->surname,
@@ -43,21 +34,21 @@ void getThreeValues(char* textToPrint, char* format, void* arg,
                                                      void* arg2,
                                                      void* arg3)
 {
-    DEBUG();
+    DEBUG("");
     printf("%s", textToPrint);
     scanf(format, arg, arg2, arg3);
 }
 
 void getOneValue(char* textToPrint, char* format, void* arg)
 {
-    DEBUG();
+    DEBUG("");
     printf("%s", textToPrint);
     scanf(format, arg);
 }
 
 void addNewStudent(Student *students, int *numOfStudents, const Student tempStudent)
 {
-    DEBUG();
+    DEBUG("");
     if ( isNewStudent(&tempStudent, students, *numOfStudents) )
     {
         if (*numOfStudents < MAX_STUD)
@@ -74,7 +65,7 @@ void addNewStudent(Student *students, int *numOfStudents, const Student tempStud
 
 void copyStudents(Student* destination, Student* source)
 {
-    DEBUG();
+    DEBUG("");
     strcpy(destination->name, source->name);
     strcpy(destination->surname, source->surname);
     destination->age = source->age;
@@ -84,7 +75,7 @@ void copyStudents(Student* destination, Student* source)
 
 unsigned getAge(Date birthDate)
 {
-    DEBUG();
+    DEBUG("");
     if (birthDate.month < today.month)
         birthDate.year--;
     else if (birthDate.month == today.month)
@@ -99,7 +90,7 @@ unsigned getAge(Date birthDate)
 
 bool isNewStudent(const Student *tempStudent, Student *students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     for (int i = 0; i < numOfStudents; ++i)
     {
         if ( 0 == memcmp(tempStudent, &students[i], sizeof(Student)) )

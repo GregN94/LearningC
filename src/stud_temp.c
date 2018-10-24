@@ -7,13 +7,13 @@
 
 void createNewTemp()
 {
-    DEBUG();
+    DEBUG("");
     fopen(FILE_TEMP, "w");
 }
 
 void appendToTemp(const Student student)
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(FILE_TEMP, "a");
     writeStudentToFile(file, &student);
     fclose(file);
@@ -21,7 +21,7 @@ void appendToTemp(const Student student)
 
 void printFromTemp()
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(FILE_TEMP, "r+t");
     char line[110] = "";
     while (fgets(line, sizeof(line), file) != NULL)
@@ -34,7 +34,7 @@ void printFromTemp()
 
 bool isNewInTemp(const Student *newStudent)
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(FILE_TEMP, "r+t");
     char line[110] = "";
 

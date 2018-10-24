@@ -5,17 +5,9 @@
 #include <string.h>
 #include <stud_temp.h>
 
-#if OWN_MEM_FUNC
-#define memset(dest, ch, count) my_memset(dest, ch, count)
-#define memcpy(dest, src, count) my_memcpy(dest, src, count)
-#endif
-
-extern void* my_memcpy( void *dest, const void *src, size_t count );
-extern void* my_memset( void* dest, int ch, size_t count );
-
 void printMenu()
 {
-    DEBUG();
+    DEBUG("");
     printf("\nAvailable options:");
     printf("\n1. Print help");
     printf("\n2. Read students from file");
@@ -31,13 +23,13 @@ void printMenu()
 
 void printStudentByIndex(const Student* students, const int index)
 {
-    DEBUG();
+    DEBUG("");
     students[index].print((void*)&students[index]);
 }
 
 void printAllStudents(const Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     printf("\nPrinting all students:\n");
     for (int index = 0; index < numOfStudents; ++index)
     {
@@ -53,7 +45,7 @@ void printAllStudents(const Student* students, const int numOfStudents)
 
 void printOneStudent(const Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     int index = -1;
     getOneValue("\nPut student index to print: ", " %d", &index);
     printf("\n");
@@ -74,7 +66,7 @@ void printOneStudent(const Student* students, const int numOfStudents)
 
 Student getStudentFromConsole()
 {
-    DEBUG();
+    DEBUG("");
     Student tempStudent;
     memset(&tempStudent, 0, sizeof(Student));
 
@@ -103,14 +95,14 @@ Student getStudentFromConsole()
 
 void addStudentFromConsole(Student *students, int *numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     Student tempStudent = getStudentFromConsole();
     addNewStudent(students, numOfStudents, tempStudent);
 }
 
 void deleteStudent(Student* students, int* numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     int index = -1;
     getOneValue("\nPut student index to delete: ", " %d", &index);
     printf("\n");
@@ -131,7 +123,7 @@ void deleteStudent(Student* students, int* numOfStudents)
 
 void killStudents(Student* students, int* numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     memset(&students[*numOfStudents], 0, sizeof(Student) * (*numOfStudents));
     *numOfStudents = 0;
 }

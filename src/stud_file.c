@@ -5,15 +5,9 @@
 #include <string.h>
 #include <stdbool.h>
 
-#if OWN_MEM_FUNC
-#define memset(dest, ch, count) my_memset(dest, ch, count)
-#endif
-
-extern void* my_memset( void* dest, int ch, size_t count );
-
 void printFileSize(const char *fileName)
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(fileName, "rt");
     fseek(file, 0, SEEK_END);
     printf( "Size of file: %lu Bytes", ftell(file) );
@@ -21,7 +15,7 @@ void printFileSize(const char *fileName)
 
 void writeStudentToFile(FILE* file, const Student* student)
 {
-    DEBUG();
+    DEBUG("");
     fprintf(file, "%s %s %d-%d-%d %d-%d-%d %c\n",
             student->name,
             student->surname,
@@ -36,7 +30,7 @@ void writeStudentToFile(FILE* file, const Student* student)
 
 void txtWrite(const char* fileName, const Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(fileName, "w+t");
     for (int i = 0; i < numOfStudents; ++i)
     {
@@ -47,7 +41,7 @@ void txtWrite(const char* fileName, const Student* students, const int numOfStud
 
 void binWrite(const char* fileName, const Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(fileName, "w+b");
     for (int i = 0; i < numOfStudents; ++i)
     {
@@ -68,7 +62,7 @@ void binWrite(const char* fileName, const Student* students, const int numOfStud
 
 void writeStudentsToFile(const Student* students, const int numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     char fileName[30] = "";
     getOneValue("\nPut file name to write to: ", " %s", &fileName);
 
@@ -92,7 +86,7 @@ void writeStudentsToFile(const Student* students, const int numOfStudents)
 
 Student getStudentFromLine(const char* line)
 {
-    DEBUG();
+    DEBUG("");
     Student tempStudent;
     memset(&tempStudent, 0, sizeof(Student));
     sscanf(line, "%s %s %d-%d-%d, %d-%d-%d, %c",
@@ -120,7 +114,7 @@ Student getStudentFromLine(const char* line)
 
 void readStringFromBin(FILE* file, char* string)
 {
-    DEBUG();
+    DEBUG("");
     int length = 0;
     unsigned char buf;
     while(fread(&buf, sizeof(buf), 1, file))
@@ -134,7 +128,7 @@ void readStringFromBin(FILE* file, char* string)
 
 Student readStudentFromBin(FILE* file)
 {
-    DEBUG();
+    DEBUG("");
     Student tempStudent;
     memset(&tempStudent, 0, sizeof(Student));
     readStringFromBin(file, tempStudent.name);
@@ -166,7 +160,7 @@ void operationOnFile(const char* fileName,
                          int* numOfStudents,
                          void operation(FILE*, Student*, int*))
 {
-    DEBUG();
+    DEBUG("");
     FILE* file = fopen(fileName, option);
 
     if ( file != NULL )
@@ -184,7 +178,7 @@ void operationOnFile(const char* fileName,
 
 void readFromTxt(FILE* file, Student* students, int* numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     char line[110] = "";
     while (fgets(line, sizeof(line), file) != NULL)
     {
@@ -195,7 +189,7 @@ void readFromTxt(FILE* file, Student* students, int* numOfStudents)
 
 void readFromBin(FILE* file, Student* students, int* numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     while (true)
     {
         Student tempStudent = readStudentFromBin(file);
@@ -207,7 +201,7 @@ void readFromBin(FILE* file, Student* students, int* numOfStudents)
 
 void readStudentsFromFile(Student* students, int* numOfStudents)
 {
-    DEBUG();
+    DEBUG("");
     char fileName[30] = "";
     getOneValue("\nPut file name to read from: ", " %s", fileName);
     char option = '1';
