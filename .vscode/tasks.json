@@ -24,7 +24,7 @@
         {
             "label": "Build with debugs",
             "type": "shell",
-            "command": "cmake -D DEBUG_OPT=true .",
+            "command": "cmake -D DEBUG_OPT=true . && make",
             "group": "build",
             "presentation": {
                 "panel": "dedicated",
@@ -34,7 +34,7 @@
         {
             "label": "Build with own mem func",
             "type": "shell",
-            "command": "cmake -D OWN_MEM=true .",
+            "command": "cmake -D OWN_MEM=true . && make",
             "group": "build",
             "presentation": {
                 "panel": "dedicated",
@@ -44,7 +44,7 @@
         {
             "label": "Build with all opts",
             "type": "shell",
-            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true .",
+            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true . && make",
             "group": "build",
             "presentation": {
                 "panel": "dedicated",
@@ -55,7 +55,7 @@
         {
             "label": "Build and run",
             "type": "shell",
-            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true . && ./run",
+            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true . && make && ./run",
             "group": {
                 "kind": "build",
                 "isDefault": true
