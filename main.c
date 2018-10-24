@@ -13,7 +13,6 @@ bool isRunning = true;
 
 int main()
 {
-
     Student students[MAX_STUD];
     memset(students, 0, sizeof(students));
     int numOfStudents = 0;

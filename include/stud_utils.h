@@ -2,8 +2,14 @@
 #define __STUD_UTILS_H__
 
 #include "stud_types.h"
-
 #include <stdbool.h>
+#include <stdio.h>
+
+#define DEBUG
+#ifdef DEBUG_OPT
+    #undef DEBUG
+    #define DEBUG(); printf("\nDEBUG: at %s, line %d.", __FILE__, __LINE__);
+#endif
 
 void printWoman(Student*);
 void printMan(Student*);

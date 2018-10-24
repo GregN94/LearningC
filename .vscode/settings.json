@@ -1,0 +1,38 @@
+{
+    "editor.wordWrap" :"on",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/build" : true,
+        "**/CMakeFiles" : true,
+        "**/cmake_install.cmake" : true,
+        "**/CMakeCache.txt" : true,
+        "**/compile_commands.json" : true,
+        "**/Makefile" : true,
+        "**/.idea" : true,
+        "**/run*" : true
+    },
+    "search.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/build" : true,
+        "**/CMakeFiles" : true,
+        "**/cmake_install.cmake" : true,
+        "**/CMakeCache.txt" : true,
+        "**/compile_commands.json" : true,
+        "**/Makefile" : true,
+        "**/.idea" : true,
+        "**/run*" : true
+      },
+    "editor.minimap.enabled": false,
+    "search.location": "panel",
+    "C_Cpp.intelliSenseEngine": "Default",
+    // "C_Cpp.intelliSenseEngine": "Tag Parser",
+    // "searchRipgrep.enable": true
+}

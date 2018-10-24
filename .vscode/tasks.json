@@ -1,0 +1,79 @@
+{
+    "version": "2.0.0",
+    "problemMatcher": [],
+    "tasks": [
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "rm -rf build/ CMakeFiles/ cmake_install.cmake CMakeCache.txt compile_commands.json Makefile run*",
+            "presentation": {
+                "panel": "shared",
+                "showReuseMessage": true
+            }
+        },
+        {
+            "label": "Build clean",
+            "type": "shell",
+            "command": "cmake . && make",
+            "group": "build",
+            "presentation": {
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Build with debugs",
+            "type": "shell",
+            "command": "cmake -D DEBUG_OPT=true .",
+            "group": "build",
+            "presentation": {
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Build with own mem func",
+            "type": "shell",
+            "command": "cmake -D OWN_MEM=true .",
+            "group": "build",
+            "presentation": {
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Build with all opts",
+            "type": "shell",
+            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true .",
+            "group": "build",
+            "presentation": {
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+            
+        },
+        {
+            "label": "Build and run",
+            "type": "shell",
+            "command": "cmake -D OWN_MEM=true -D DEBUG_OPT=true . && ./run",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "./run",
+            "presentation": {
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        }
+    ]
+}
